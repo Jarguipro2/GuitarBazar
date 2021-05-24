@@ -1,0 +1,93 @@
+﻿@model GuitarBazar.Models.Guitar
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>
+    @Model.Maker / @Model.Model
+    &nbsp;
+    @Helper.GlyphiconAction("Edit/" + Model.Id, "glyphicon-edit", "Modifier " + Model.Model)
+    @Helper.GlyphiconAction("Delete/" + Model.Id, "glyphicon-remove-circle", "Effacer " + Model.Model)
+    @Helper.GlyphiconAction("Index", "glyphicon-arrow-up", "Retour à la liste")
+</h2>
+<table>
+    <tr>
+        <td style="vertical-align:top">
+            <a href="@Model.ImageURL" target="_blank">
+                @Helper.GuitarImage("guitarImage", "previewBig", @Model.ImageURL, @Model.RotateImage)
+           </a>
+        </td>
+        <td>
+            <div>
+                <h3>Vendeur: <a href="/Sellers/Details/@Model.Seller.Id">@Model.Seller.Name</a></h3>
+
+                <hr />
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AddDate)
+                    </dt>
+
+                    <dd>
+                        @Model.AddDate.ToLongDateString()
+                        <hr />
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                        <hr />
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Year)
+                    </dd>
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Condition)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Condition)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.GuitarType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.GuitarType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price) $
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Sold)
+                    </dt>
+
+                    <dd>
+                        @Helper.BoolToValue(Model.Sold)
+                    </dd>
+
+                </dl>
+            </div>
+        </td>
+    </tr>
+</table>
+

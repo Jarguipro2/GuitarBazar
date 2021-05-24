@@ -1,0 +1,25 @@
+﻿@model IEnumerable<GuitarBazar.Models.Guitar>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Guitares à vendre @Helper.GlyphiconAction("Create", "glyphicon-plus", "Ajouter une guitare à vendre")</h2>
+
+<hr />
+<div class='thumbnailListContainer'>
+    @foreach (var guitar in Model)
+    {
+        <div class='thumbnailContainer'>
+            <div class='thumbnailHeader ellipsis'>
+                <b>@guitar.Model</b>
+            </div>
+            <a href="@Url.Action("Details", "Guitars", new { id = guitar.Id })">
+                @Helper.GuitarImage("thumbail" + guitar.Id, "thumbnail", guitar.ImageURL, guitar.RotateImage)
+            </a>
+        </div>
+    }
+</div>
+<script>
+    setInterval(function () { location.reload(); }, 600000);
+</script>

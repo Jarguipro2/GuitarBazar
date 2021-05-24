@@ -1,0 +1,62 @@
+﻿@helper EnumToRadioButtonGroup(string name, object enumObj, bool create = false)
+{
+    int index = 0;
+    foreach (var enumItem in Enum.GetValues(enumObj.GetType()))
+    {
+        string id = name + "_" + index.ToString();
+
+        if (!create && index == (int)enumObj)
+        {
+            <input type="radio" name="@name" class="@name" id="@id" value="@index" checked />
+        }
+        else
+        {
+            <input type="radio" name="@name" class="@name" id="@id" value="@index" />
+        }
+        <label for="@id" class="control-label">@enumItem.ToString()</label>
+        index++;
+    }
+    <br />
+}
+
+@helper GlyphiconAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <a href="@Url.Action(Action)">
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </a>
+}
+
+@helper BoolToValue(bool b, string falseText = "non", string trueText = "oui")
+{
+    if (b)
+    {
+        @trueText
+    }
+    else
+    {
+        @falseText
+    }
+}
+
+@helper GuitarImage(string id, string imgClass, string url, bool rotate = false)
+{
+    var ContextUrl = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var imageUrl = ContextUrl.Content("~/Images/defaultGuitarLogo.jpg");
+    if (!string.IsNullOrEmpty(url))
+    {
+        imageUrl = url;
+    }
+    if (rotate)
+    {
+        <div id="@id" class='@imgClass' style='background:url(@imageUrl) no-repeat center;  background-size: contain; transform: rotate(270deg)'></div>
+    }
+    else
+    {
+        <div id="@id" class='@imgClass' style='background:url(@imageUrl) no-repeat center;  background-size: contain; '></div>
+    }
+}
+

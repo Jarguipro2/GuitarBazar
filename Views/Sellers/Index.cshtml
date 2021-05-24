@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GuitarBazar.Models.Seller>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des vendeurs</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Helper.GlyphiconAction("Create", "glyphicon-plus", "Ajout de vendeur")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Helper.GlyphiconAction("Edit/" + item.Id.ToString(), "glyphicon-edit", "Modifier " + @item.Name + "...")
+                @Helper.GlyphiconAction("Details/" + item.Id.ToString(), "glyphicon-eye-open", "Détails sur " + @item.Name + "...")
+                @Helper.GlyphiconAction("Delete/" + item.Id.ToString(), " glyphicon-remove-circle", "Effacer " + @item.Name + "...")
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    setInterval(function () { location.reload(); }, 600000);
+</script>

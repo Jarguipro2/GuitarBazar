@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    List<string> lines = (List<string>)ViewBag.Logs;
+}
+
+<h2>Logs</h2>
+@for (int i = lines.Count - 1; i >= 0; i--)
+{
+    string line = lines[i];
+    string color = "green";
+    if (line.Contains("Delete"))
+    {
+        color = "red";
+    }
+    if (line.Contains("Details"))
+    {
+        color = "blue";
+    }
+    if (line.Contains("Create"))
+    {
+        color = "orange";
+    }
+    if (line.Contains("Edit"))
+    {
+        color = "goldenrod";
+    }
+    <span style="color:@color">@line</span>
+    <br />
+}
+
+@section Scripts {
+   <script>
+       setInterval(function () { location.reload(); }, 5000);
+    </script>
+}

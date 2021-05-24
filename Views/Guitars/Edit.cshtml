@@ -1,0 +1,148 @@
+﻿@model GuitarBazar.Models.Guitar
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>
+    Modification
+    @Helper.GlyphiconAction("Index", "glyphicon-arrow-up", "Retour à la liste")
+</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.AddDate, new { htmlAttributes = new { @class = "form-control" } })
+        <!-- Seller -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.SellerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SellerId", (SelectList)ViewBag.Sellers, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SellerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Sold -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sold, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Sold)
+                </div>
+            </div>
+        </div>
+        <!-- Maker -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Maker, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Maker, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Maker, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Model -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- ImageUrl -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <!-- Preview -->
+        <div class="form-group">
+            @Html.Label("Aperçu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <table>
+                    <tr style="vertical-align:top">
+                        <td> @Helper.GuitarImage("preview", "thumbnail", Model.ImageURL, Model.RotateImage)</td>
+                        <td> @Html.LabelFor(model => model.RotateImage, htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                        <td style="padding-top:7px"> @Html.EditorFor(model => model.RotateImage)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                <br />
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- year -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Condition -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Condition, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Helper.EnumToRadioButtonGroup("État", Model.Condition)
+                @Html.ValidationMessageFor(model => model.Condition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- GuitarType -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.GuitarType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Helper.EnumToRadioButtonGroup("GuitarType", Model.GuitarType)
+                @Html.ValidationMessageFor(model => model.GuitarType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Price -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!-- Submit button -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#ImageURL").change(function () {
+            $("#preview").css("background", 'url("' + $("#ImageURL").val() + '") no-repeat center ');
+            $("#preview").css("background-size", 'contain');
+        })
+        $("#ImageURL").change(function () {
+            $("#preview").css("background", 'url("' + $("#ImageURL").val() + '") no-repeat center ');
+            $("#preview").css("background-size", 'contain');
+        })
+        $("#RotateImage").change(function () {
+            if ($('#RotateImage').is(":checked")) {
+                $("#preview").css("transform", 'rotate(270deg)');
+            }
+            else {
+                $("#preview").css("transform", 'rotate(0deg)');
+            }
+        })
+    </script>
+}
